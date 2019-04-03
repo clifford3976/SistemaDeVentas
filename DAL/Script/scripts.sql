@@ -1,0 +1,4 @@
+create database SistemaDeVentasDB
+go
+use SistemaDeVentasDB
+go
