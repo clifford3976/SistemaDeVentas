@@ -43,6 +43,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=18.1.1.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.18.1.1\lib\net40\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -168,11 +171,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SistemaDeVentasDBDataSetRecibido.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="SistemaDeVentasDBDataSetRecibo.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SistemaDeVentasDBDataSetRecibo.xsd</DependentUpon>
     </Compile>
     <Compile Include="SistemaDeVentasDBDataSetRopa.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -311,9 +309,6 @@
     <Content Include="SistemaDeVentasDBDataSetRopa.xsc">
       <DependentUpon>SistemaDeVentasDBDataSetRopa.xsd</DependentUpon>
     </Content>
-    <Content Include="SistemaDeVentasDBDataSetfactura.xsc">
-      <DependentUpon>SistemaDeVentasDBDataSetfactura.xsd</DependentUpon>
-    </Content>
     <Content Include="SistemaDeVentasDBDataSetCliente.xsc">
       <DependentUpon>SistemaDeVentasDBDataSetCliente.xsd</DependentUpon>
     </Content>
@@ -325,6 +320,12 @@
     <Content Include="SistemaDeVentasDBDataSetCliente.xss">
       <DependentUpon>SistemaDeVentasDBDataSetCliente.xsd</DependentUpon>
     </Content>
+    <Content Include="SistemaDeVentasDBDataSetRecibido.xsc">
+      <DependentUpon>SistemaDeVentasDBDataSetRecibido.xsd</DependentUpon>
+    </Content>
+    <Content Include="SistemaDeVentasDBDataSetfactura.xsc">
+      <DependentUpon>SistemaDeVentasDBDataSetfactura.xsd</DependentUpon>
+    </Content>
     <None Include="SistemaDeVentasDBDataSetfactura.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>SistemaDeVentasDBDataSetfactura.Designer.cs</LastGenOutput>
@@ -333,9 +334,6 @@
     <Content Include="SistemaDeVentasDBDataSetfactura.xss">
       <DependentUpon>SistemaDeVentasDBDataSetfactura.xsd</DependentUpon>
     </Content>
-    <Content Include="SistemaDeVentasDBDataSetRecibido.xsc">
-      <DependentUpon>SistemaDeVentasDBDataSetRecibido.xsd</DependentUpon>
-    </Content>
     <None Include="SistemaDeVentasDBDataSetRecibido.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>SistemaDeVentasDBDataSetRecibido.Designer.cs</LastGenOutput>
@@ -343,17 +341,6 @@
     </None>
     <Content Include="SistemaDeVentasDBDataSetRecibido.xss">
       <DependentUpon>SistemaDeVentasDBDataSetRecibido.xsd</DependentUpon>
-    </Content>
-    <Content Include="SistemaDeVentasDBDataSetRecibo.xsc">
-      <DependentUpon>SistemaDeVentasDBDataSetRecibo.xsd</DependentUpon>
-    </Content>
-    <None Include="SistemaDeVentasDBDataSetRecibo.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>SistemaDeVentasDBDataSetRecibo.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="SistemaDeVentasDBDataSetRecibo.xss">
-      <DependentUpon>SistemaDeVentasDBDataSetRecibo.xsd</DependentUpon>
     </Content>
     <None Include="SistemaDeVentasDBDataSetRopa.xsd">
       <Generator>MSDataSetGenerator</Generator>

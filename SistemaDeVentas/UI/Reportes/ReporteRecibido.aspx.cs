@@ -27,7 +27,7 @@ namespace SistemaDeVentas.UI.Reportes
 
                 ReciboReportViewer.LocalReport.DataSources.Clear();
 
-                ReciboReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Recibido", repositorio.GetList(c => true)));
+                ReciboReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Factura", repositorio.GetList(c => true)));
                 ReciboReportViewer.LocalReport.Refresh();
             }
         }

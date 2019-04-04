@@ -86,14 +86,14 @@ namespace BLL
 
                 if (inventario.RopaId == Ant.RopaId)
                 {
-                    //RopaAnt.Inventario -= Ant.Cantidad;
-                    //Ropa.Inventario += inventario.Cantidad;
+                    RopaAnt.Inventario -= Ant.Cantidad;
+                    Ropa.Inventario += inventario.Cantidad;
                     Ropa.Inventario = inventario.Cantidad;
 
                 }
                 else
                 {
-                    //int dif = inventario.Cantidad - Ant.Cantidad;
+                    int dif = inventario.Cantidad - Ant.Cantidad;
                     Ropa.Inventario = inventario.Cantidad;
                 }
                 contexto.Entry(Ropa).State = EntityState.Modified;

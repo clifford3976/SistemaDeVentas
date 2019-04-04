@@ -5,6 +5,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+     <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
 
     <div class=" panel panel-primary">
         <div class="panel-heading text-center">
@@ -146,7 +147,9 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:TextBox ID="CedulaTextBox" runat="server" class="form-control" Height="30" Width="300" MaxLength="80"></asp:TextBox>
+                            <asp:TextBox ID="CedulaTextBox" runat="server" class="form-control" Height="30" Width="300" MaxLength="11"></asp:TextBox>
+                             <ajaxToolkit:MaskedEditExtender ID="MaskedEditExtendercedula" BehaviorID="Cedulainput_MaskedEditExtender" MaskType="Number" ClearMaskOnLostFocus="true" runat="server" TargetControlID="cedulatextbox" Mask="999-9999999-9" />
+
                         </td>
                         <td>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ErrorMessage=' solo acepta numeros' ControlToValidate="CedulaTextBox" ValidationExpression="^[0.0-9.0]*" Text="*" ForeColor="Red" Display="Dynamic" ToolTip="Entrada no valida" ValidationGroup="Guardar"></asp:RegularExpressionValidator>
@@ -169,7 +172,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:TextBox ID="TelefonoTextBox" runat="server" class="form-control" Height="30" Width="300" MaxLength="80"></asp:TextBox>
+                            <asp:TextBox ID="TelefonoTextBox" runat="server" class="form-control" Height="30" Width="300" MaxLength="10"></asp:TextBox>
                         </td>
                         <td>
                             <asp:RegularExpressionValidator ID="ValidaMontoNUM" runat="server" ErrorMessage=' solo acepta numeros' ControlToValidate="TelefonoTextBox" ValidationExpression="^[0.0-9.0]*" Text="*" ForeColor="Red" Display="Dynamic" ToolTip="Entrada no valida" ValidationGroup="Guardar"></asp:RegularExpressionValidator>

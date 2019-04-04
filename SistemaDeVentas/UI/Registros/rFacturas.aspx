@@ -45,7 +45,7 @@
                     <tr>
                         <td>
                             <strong>
-                                <label for="ClienteDropDownList">Ropa</label></strong>
+                                <label for="ClienteDropDownList">Clliente</label></strong>
                         </td>
                     </tr>
                     <tr>
@@ -167,10 +167,10 @@
                         AutoGenerateColumns="False" CellPadding="4" AllowPaging="true" PageSize="7" ForeColor="Black" GridLines="None" BackColor="White" OnPageIndexChanging="detalleGridView_PageIndexChanging1">
                         <AlternatingRowStyle BackColor="White" />
                         <Columns>
-                            <asp:TemplateField ShowHeader="False" HeaderText="Opciones">
+                            <asp:TemplateField ShowHeader="False" HeaderText="Opcion">
                                 <ItemTemplate>
                                     <asp:Button ID="Remover" runat="server" CausesValidation="false" CommandName="Delete"
-                                        Text="Eliminar" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-ejemplo-modal-lg" OnClick="Remover_Click" />
+                                        Text="Remover" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-ejemplo-modal-lg" OnClick="Remover_Click" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
@@ -186,6 +186,7 @@
     </div>
 
     <%--MontoTextBox--%>
+            
     <div>
         <table>
             <tr>
@@ -274,7 +275,7 @@
             </tr>
         </table>
     </div>
-
+       
     </div>
     <%--  <%-- Botones--%>
     <div class="panel-footer">

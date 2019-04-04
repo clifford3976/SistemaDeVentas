@@ -97,7 +97,7 @@
                 </td>
                 <td>
                     <asp:RegularExpressionValidator ID="ValidaMontoNUM" runat="server" ErrorMessage=' solo acepta numeros' ControlToValidate="CantidadTextBox" ValidationExpression="^[0.0-9.0]*" Text="*" ForeColor="Red" Display="Dynamic" ToolTip="Entrada no valida" ValidationGroup="Guardar"></asp:RegularExpressionValidator>
-                    <asp:RequiredFieldValidator ID="Validacantidad" runat="server" ErrorMessage="El campo &quot;cantidad&quot; esta vacio" ControlToValidate="CantidadTextBox" ForeColor="Red" Display="Dynamic" ToolTip="Campo obligatorio" ValidationGroup="Guardar">*</asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="Validacantidad" runat="server" ErrorMessage="El campo &quot;cantidad&quot; esta vacio" ControlToValidate="CantidadTextBox"  ForeColor="Red" Display="Dynamic" ToolTip="Campo obligatorio" ValidationGroup="Guardar">*</asp:RequiredFieldValidator>
 
                 </td>
             </tr>
@@ -112,7 +112,7 @@
 
             <asp:Button ID="NuevoButton" runat="server" class="btn btn-info" Text="Nuevo" OnClick="NuevoButton_Click" ValidationGroup="Nuevo" />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                    
-                <asp:Button ID="GuardarButton" runat="server" class="btn btn-success" Text="Guardar" OnClick="GuardarButton_Click" />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <asp:Button ID="GuardarButton" runat="server" class="btn btn-success" Text="Guardar" OnClick="GuardarButton_Click" ValidationGroup="Guardar" />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                    
                 <asp:Button ID="EliminarButton" runat="server" class="btn btn-danger" Text="Eliminar" OnClick="EliminarButton_Click" />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 
