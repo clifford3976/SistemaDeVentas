@@ -235,7 +235,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Sum(Fields!FacturaId.Value)</Value>
+                <Value>=Fields!FacturaId.Value</Value>
                 <Style>
                   <FontWeight>Normal</FontWeight>
                   <Color>#333333</Color>
@@ -311,7 +311,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Sum(Fields!SubTotal.Value)</Value>
+                <Value>=Fields!SubTotal.Value</Value>
                 <Style>
                   <FontWeight>Normal</FontWeight>
                   <Color>#333333</Color>
@@ -387,7 +387,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Sum(Fields!Total.Value)</Value>
+                <Value>=Fields!Total.Value</Value>
                 <Style>
                   <FontWeight>Normal</FontWeight>
                   <Color>#333333</Color>
@@ -463,7 +463,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Sum(Fields!Monto.Value)</Value>
+                <Value>=Fields!Monto.Value</Value>
                 <Style>
                   <FontWeight>Normal</FontWeight>
                   <Color>#333333</Color>
@@ -551,7 +551,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Sum(Fields!Devuelta.Value)</Value>
+                <Value>=Fields!Devuelta.Value</Value>
                 <Style>
                   <FontWeight>Normal</FontWeight>
                   <Color>#333333</Color>
