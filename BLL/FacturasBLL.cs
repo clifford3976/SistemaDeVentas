@@ -25,10 +25,13 @@ namespace BLL
             {
                 if (contexto.Facturas.Add(Factura) != null)
                 {
+                    //Inventarios inventario = contexto.Inventarios.Find(Factura.FacturaId);
+
 
                     foreach (var item in Factura.Detalles)
                     {
                         contexto.Ropas.Find(item.RopaId).Inventario -= item.Cantidad;
+                        contexto.Inventarios.Find(item.RopaId).Cantidad -= item.Cantidad;
                     }
 
 

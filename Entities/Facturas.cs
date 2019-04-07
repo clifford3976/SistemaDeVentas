@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,6 @@ namespace Entities
         public decimal Abono { get; set; }
         public decimal Monto { get; set; }
         public decimal Devuelta { get; set; }
-
 
         public virtual List<FacturasDetalles> Detalles { get; set; }
 

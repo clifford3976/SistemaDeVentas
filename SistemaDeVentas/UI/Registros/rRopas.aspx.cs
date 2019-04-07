@@ -4,6 +4,7 @@ using SistemaDeVentas.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -94,6 +95,24 @@ namespace SistemaDeVentas.UI.Registros
             Limpiar();
         }
 
+        protected bool ValidarNombres(Ropas ropas)
+        {
+            bool validar = false;
+            Expression<Func<Ropas, bool>> filtro = p => true;
+            Repositorio<Ropas> repositorio = new Repositorio<Ropas>();
+            var lista = repositorio.GetList(c => true);
+            foreach (var item in lista)
+            {
+                if (ropas.Descripcion == item.Descripcion)
+                {
+                    Utils.ShowToastr(this.Page, "Ropa ya Existe", "Error", "error");
+                    return validar = true;
+                }
+            }
+
+            return validar;
+        }
+
         protected void GuardarButton_Click(object sender, EventArgs e)
         {
             Repositorio<Ropas> repositorio = new Repositorio<Ropas>();
@@ -101,32 +120,39 @@ namespace SistemaDeVentas.UI.Registros
 
             if (IsValid)
             {
-                if (ropa == null)
+                if (ValidarNombres(LlenaClase()))
                 {
-                    if (repositorio.Guardar(LlenaClase()))
-                    {
-                        Utils.MostrarMensaje(this, "Guardado", "Exito!!", "success");
-                        Limpiar();
-                    }
-                    else
-                    {
-                        Utils.MostrarMensaje(this, "No Guardado", "Fallo!!", "warning");
-                        Limpiar();
-                    }
+                    return;
                 }
                 else
                 {
-                    if (repositorio.Modificar(LlenaClase()))
+                    if (ropa == null)
                     {
-                        Utils.MostrarMensaje(this, "Modificado", "Exito!!", "info");
-                        Limpiar();
+                        if (repositorio.Guardar(LlenaClase()))
+                        {
+                            Utils.MostrarMensaje(this, "Guardado", "Exito!!", "success");
+                            Limpiar();
+                        }
+                        else
+                        {
+                            Utils.MostrarMensaje(this, "No Guardado", "Fallo!!", "warning");
+                            Limpiar();
+                        }
                     }
                     else
                     {
-                        Utils.MostrarMensaje(this, "No Modificado", "Fallo!!", "warning");
-                        Limpiar();
-                    }
+                        if (repositorio.Modificar(LlenaClase()))
+                        {
+                            Utils.MostrarMensaje(this, "Modificado", "Exito!!", "info");
+                            Limpiar();
+                        }
+                        else
+                        {
+                            Utils.MostrarMensaje(this, "No Modificado", "Fallo!!", "warning");
+                            Limpiar();
+                        }
 
+                    }
                 }
             }
         }

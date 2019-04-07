@@ -106,6 +106,8 @@
     <Content Include="Global.asax" />
     <Content Include="content\toastr.scss" />
     <Content Include="content\toastr.less" />
+    <None Include="Properties\PublishProfiles\SistemaDeVenta - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\SistemaDeVenta - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.6.3-vsdoc.js" />
     <Content Include="Imagenes\cmj.jpg" />
     <Content Include="Scripts\jquery-1.6.3.js" />
@@ -383,9 +385,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UI\Reportes\ClienteReporte.rdlc" />
+    <Content Include="UI\Reportes\ClienteReporte.rdlc" />
     <EmbeddedResource Include="UI\Reportes\FacturaReporte.rdlc" />
-    <EmbeddedResource Include="UI\Reportes\RecibidoReporte.rdlc" />
+    <Content Include="UI\Reportes\RecibidoReporte.rdlc" />
     <EmbeddedResource Include="UI\Reportes\RopaReporte.rdlc" />
     <EmbeddedResource Include="UI\Reportes\UsuarioReporte.rdlc" />
   </ItemGroup>

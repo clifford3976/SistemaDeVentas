@@ -4,6 +4,7 @@ using SistemaDeVentas.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -104,7 +105,7 @@ namespace SistemaDeVentas.UI.Registros
             Facturas facturacion = new Facturas();
             FacturasDetalles detalle = new FacturasDetalles();
             facturacion.FacturaId = Utilities.Utils.ToInt(FacturaIdTextbox.Text);
-            facturacion.ClienteId = Utilities.Utils.ToInt(ClienteDropDownList.SelectedValue);
+            facturacion.ClienteId = Utilities.Utils.ToInt(ClienteDropDownList.Text);
             facturacion.Monto = Utilities.Utils.ToDecimal(MontoTextBox.Text);
             facturacion.Devuelta = Utilities.Utils.ToDecimal(DevueltaTextBox.Text);
             facturacion.SubTotal = Utils.ToDecimal(SubtotalTextBox.Text);
@@ -347,7 +348,7 @@ namespace SistemaDeVentas.UI.Registros
             else
             {
                 Limpiar();
-                Utils.ShowToastr(this, "No se pudo encontrar el Préstamo especificado", "Error", "error");
+                Utils.ShowToastr(this, "No se pudo encontrar la factura", "Error", "error");
             }
         }
 
@@ -361,7 +362,7 @@ namespace SistemaDeVentas.UI.Registros
 
             {
                 PrecioTextbox.Text = item.Precio.ToString();
-
+                
 
             }
         }
@@ -407,24 +408,52 @@ namespace SistemaDeVentas.UI.Registros
 
         protected void DevueltaTextBox_TextChanged(object sender, EventArgs e)
         {
-            //decimal total = Utils.ToDecimal(TotalTextBox.Text);
-            //decimal monto = Utils.ToDecimal(MontoTextBox.Text);
-            //decimal devuelta;
-
-            //if (monto < total)
-            //{
-            //    Utilities.Utils.ShowToastr(this, "le falta dinero para pagar el articulo", "Fallido", "error");
-            //}
-            //else if (monto >= total)
-            //{
-            //    devuelta = FacturasBLL.CalcularDevuelta(monto, total);
-            //    DevueltaTextBox.Text = devuelta.ToString();
-            //}
+           
         }
 
         protected void ReporteButton_Click(object sender, EventArgs e)
         {
             Response.Redirect("../Reportes/ReporteRecibido.aspx");
+        }
+
+
+        protected void InventarioTextBox_TextChanged(object sender, EventArgs e)
+        {
+            Precio();
+        }
+
+        protected void detalleGridView_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Select")
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                Expression<Func<Ropas, bool>> filtro = p => true;
+                Repositorio<Ropas> repositorio = new Repositorio<Ropas>();
+                var lista = repositorio.GetList(c => true);
+                var ropa = repositorio.Buscar(lista[index].RopaId);
+
+                Facturas facturacion = new Facturas();
+
+                decimal subtotal = 0;
+                decimal total = 0;
+                foreach (var item in facturacion.Detalles)
+                {
+                    subtotal -= item.Importe;
+
+                }
+
+                SubtotalTextBox.Text = subtotal.ToString();
+
+                total -= subtotal;
+
+                TotalTextBox.Text = total.ToString();
+
+                ((List<FacturasDetalles>)ViewState["Facturacion"]).RemoveAt(index);
+                detalleGridView.DataSource = ViewState["Facturacion"];
+                detalleGridView.DataBind();
+                MontoTextBox.Text = "";
+                DevueltaTextBox.Text = "";
+            }
         }
     }
 }

@@ -82,7 +82,6 @@
         </div>
 
 
-
         <%--CantidadTexbox--%>
 
         <div>
@@ -164,18 +163,15 @@
             <div class="form-group">
                 <div class="form-row justify-content-center">
                     <asp:GridView ID="detalleGridView" runat="server" class="table table-condensed table-bordered table-responsive"
-                        AutoGenerateColumns="False" CellPadding="4" AllowPaging="true" PageSize="7" ForeColor="Black" GridLines="None" BackColor="White" OnPageIndexChanging="detalleGridView_PageIndexChanging1">
+                       CellPadding="4" AllowPaging="true" PageSize="7" ForeColor="Black" GridLines="None" BackColor="White" OnPageIndexChanging="detalleGridView_PageIndexChanging1" OnRowCommand="detalleGridView_RowCommand">
                         <AlternatingRowStyle BackColor="White" />
                         <Columns>
                             <asp:TemplateField ShowHeader="False" HeaderText="Opcion">
                                 <ItemTemplate>
-                                    <asp:Button ID="Remover" runat="server" CausesValidation="false" CommandName="Delete"
+                                    <asp:Button ID="Remover" runat="server" CausesValidation="false" CommandName="Select" CommandArgument="<%# ((GridViewRow) Container).DataItemIndex %>"
                                         Text="Remover" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-ejemplo-modal-lg" OnClick="Remover_Click" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
-                            <asp:BoundField DataField="Precio" HeaderText="Precio" />
-                            <asp:BoundField DataField="Importe" HeaderText="Importe" />
                         </Columns>
                         <HeaderStyle BackColor="#009900" Font-Bold="True" />
                     </asp:GridView>

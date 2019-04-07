@@ -18,7 +18,49 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+    <%--Librerias para el toast--%>
+    <link href="./Media/css/Grey/ListBox.Grey.css" rel="stylesheet" type="text/css" />
+    <link href="./Media/css/WebTrack.css" rel="stylesheet" type="text/css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css"
+        rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"
+        type="text/javascript"></script>
+    <%--Programacion en Javascript para que funcione el toast--%>
+    <script type="text/javascript">
+        function Notify(msg, title, type, clear, pos, sticky) {
+            if (clear == true) {
+                toastr.clear();
+            }
+            if (sticky == true) {
+                toastr.tapToDismiss = true;
+                toastr.timeOut = 10000;
+            }
 
+            toastr.options.onclick = function () {
+                //alert('You can perform some custom action after a toast goes away'); 
+            }
+            //"toast-top-left"; 
+            toastr.options.positionClass = pos;
+            if (type.toLowerCase() == 'info') {
+                toastr.options.timeOut = 1000;
+                toastr.tapToDismiss = true;
+                toastr.info(msg, title);
+            }
+            if (type.toLowerCase() == 'success') {
+                toastr.options.timeOut = 1500;
+                toastr.success(msg, title);
+            }
+            if (type.toLowerCase() == 'warning') {
+                toastr.options.timeOut = 3000;
+                toastr.warning(msg, title);
+            }
+            if (type.toLowerCase() == 'error') {
+                toastr.options.timeOut = 10000;
+                toastr.error(msg, title);
+            }
+        }
+    </script>
 </head>
 <body>
 
