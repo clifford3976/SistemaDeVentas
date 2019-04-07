@@ -1,5 +1,6 @@
 ﻿using BLL;
 using Entities;
+using SistemaDeVentas.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,88 +16,98 @@ namespace SistemaDeVentas.UI.Consultas
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            DesdeTextBox.Text = DateTime.Now.ToString("yyyy-MM-dd");
-            HastaTextBox.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            if (!Page.IsPostBack)
+            {
+                DesdeTextBox.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                HastaTextBox.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            }
         }
 
-        protected void ButtonBuscar_Click1(object sender, EventArgs e)
+        Expression<Func<Inventarios, bool>> filtro = x => true;
+        Repositorio<Inventarios> repositorio = new Repositorio<Inventarios>();
+
+        public void Mensaje()
         {
-            InventarioGridView.DataBind();
-            Expression<Func<Inventarios, bool>> filtro = x => true;
-            Repositorio<Inventarios> repositorio = new Repositorio<Inventarios>();
 
-            int id;
 
+            if (repositorio.GetList(filtro).Count() == 0)
+            {
+                Utils.ShowToastr(this.Page, "No hay Registros", "Informacion", "info");
+                return;
+            }
+
+        }
+        public void RetornaLista()
+        {
+
+
+            int id = 0;
             DateTime desde = Convert.ToDateTime(DesdeTextBox.Text);
             DateTime hasta = Convert.ToDateTime(HastaTextBox.Text);
 
-            switch (TipodeFiltro.SelectedIndex)
+
+
+            switch (FiltroDropDownList.SelectedIndex)
             {
                 case 0://ID
+                    id = Utils.ToInt(CriterioTextBox.Text);
 
-                    id = Utilities.Utils.ToInt(TextCriterio.Text);
-                    if (FechaCheckBox.Checked == true)
-                    {
-                        filtro = x => x.InventarioId == id && (x.Fecha >= desde && x.Fecha <= hasta);
-                    }
-                    else
-                    {
-                        filtro = c => c.InventarioId == id;
-                    }
+                    filtro = c => c.InventarioId == id && (c.Fecha >= desde && c.Fecha <= hasta);
 
-                    if (repositorio.GetList(filtro).Count() == 0)
-                    {
-                        Utilities.Utils.MostrarMensaje(this, " inventario ID No Existe", "Fallido", "success");
-                        return;
-                    }
+
+                    Mensaje();
 
                     break;
 
-                case 1:// RopaId
-                    int ropaid = Utilities.Utils.ToInt(TextCriterio.Text);
-                    if (FechaCheckBox.Checked == true)
-                    {
-                        filtro = x => x.RopaId == ropaid && (x.Fecha >= desde && x.Fecha <= hasta);
-                    }
-                    else
-                    {
-                        filtro = c => c.RopaId == ropaid;
-                    }
+                case 1://  ropaid
+                    id = Utils.ToInt(CriterioTextBox.Text);
 
-                    if (repositorio.GetList(filtro).Count() == 0)
-                    {
-                        Utilities.Utils.MostrarMensaje(this, "Cuenta ID No Existe", "Fallido", "success");
-                    }
+                    filtro = c => c.RopaId == id && (c.Fecha >= desde && c.Fecha <= hasta);
+
+
+                    Mensaje();
 
                     break;
 
 
-                case 2://Todos
+                case 2:// cantidad
 
-                    if (FechaCheckBox.Checked == true)
-                    {
-                        filtro = x => true && (x.Fecha >= desde && x.Fecha <= hasta);
-                    }
-                    else
-                    {
-                        filtro = x => true;
-                    }
+                    filtro = c => c.Cantidad == Utils.ToDecimal(CriterioTextBox.Text) && (c.Fecha >= desde && c.Fecha <= hasta);
 
-                    if (repositorio.GetList(filtro).Count() == 0)
-                    {
-                        Utilities.Utils.MostrarMensaje(this, "No existen Dichos inventarios", "Fallido", "success");
-                    }
+                    Mensaje();
+
+                    break;
+
+                case 4://Todos
+
+                    filtro = x => true && (x.Fecha >= desde && x.Fecha <= hasta);
+                    Mensaje();
                     break;
 
             }
 
-            InventarioGridView.DataSource = repositorio.GetList(filtro);
-            InventarioGridView.DataBind();
+            var lista = repositorio.GetList(filtro);
+            Session["Inventarios"] = lista;
+            CriterioTextBox.Text = "";
+            DatosGridView.DataSource = lista;
+            DatosGridView.DataBind();
+
+            if (DatosGridView.Rows.Count > 0)
+            {
+                ImprimirButton.Visible = true;
+            }
+            else { ImprimirButton.Visible = false; }
+
         }
 
-        protected void ReporteButton_Click(object sender, EventArgs e)
+        protected void BuscarButton_Click(object sender, EventArgs e)
+        {
+            RetornaLista();
+        }
+
+        protected void ImprimirButton_Click(object sender, EventArgs e)
         {
             Response.Redirect("../Reportes/ReporteInventario.aspx");
         }
-    }
+    }  
 }

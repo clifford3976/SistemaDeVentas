@@ -14,6 +14,7 @@ namespace Entities
         [Key]
         public int FacturaId { get; set; }
         public int ClienteId { get; set; }
+        public DateTime Fecha { get; set; }
         public decimal SubTotal { get; set; }
         public decimal Total { get; set; }
         public decimal Abono { get; set; }
@@ -27,6 +28,7 @@ namespace Entities
         {
             FacturaId = 0;
             ClienteId = 0;
+            Fecha = DateTime.Now;
             SubTotal = 0;
             Total = 0;
             Abono = 0;

@@ -1,5 +1,6 @@
 ﻿using BLL;
 using Entities;
+using SistemaDeVentas.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,62 +13,107 @@ namespace SistemaDeVentas.UI.Consultas
 {
     public partial class cClientes : System.Web.UI.Page
     {
-        Expression<Func<Clientes, bool>> filtro = x => true;
-        Repositorio<Clientes> repositorio = new Repositorio<Clientes>();
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
 
-        protected void ButtonBuscar_Click1(object sender, EventArgs e)
+        Repositorio<Clientes> repositorio = new Repositorio<Clientes>();
+
+        Expression<Func<Clientes, bool>> filtro = x => true;
+
+        public void Mensaje()
         {
-            Filtrar();
-            ClienteGridView.DataSource = repositorio.GetList(filtro);
-            ClienteGridView.DataBind();
+
+            if (repositorio.GetList(filtro).Count() == 0)
+            {
+                Utils.ShowToastr(this.Page, "No hay Registros con el Criterio Buscado", "Informacion", "info");
+                return;
+            }
+
         }
 
-        private void Filtrar()
+
+        public void RetornaLista()
         {
+
+
             int id = 0;
-            switch (TipodeFiltro.SelectedIndex)
+
+
+            switch (FiltroDropDownList.SelectedIndex)
             {
-                case 0://Todo
+                case 0://ID
+                    id = Utils.ToInt(CriterioTextBox.Text);
+                    filtro = c => c.ClienteId == id;
+                    Mensaje();
+
+                    break;
+
+                case 1://  Nombres
+                    filtro = c => c.Nombres.Contains(CriterioTextBox.Text);
+                    Mensaje();
+                    break;
+
+                case 2:// CEDULA
+
+
+                    filtro = c => c.Cedula == CriterioTextBox.Text;
+                    Mensaje();
+                    break;
+
+                case 3:// Direccion
+
+
+                    filtro = c => c.Direccion == CriterioTextBox.Text;
+                    Mensaje();
+                    break;
+
+
+                case 4:// Telefono
+
+
+                    filtro = c => c.Telefono == CriterioTextBox.Text;
+                    Mensaje();
+                    break;
+
+                case 5://Todos
+
                     filtro = x => true;
+                    Mensaje();
                     break;
 
-                case 1://Cliente ID
-                    id = int.Parse(TextCriterio.Text);
-                    filtro = (x => x.ClienteId == id);
-                    break;
 
-                case 2://Nombre cliente
-                    filtro = (x => x.Nombres.Contains(TextCriterio.Text));
-                    break;
 
-                case 3://ApellidoCliente
-                    filtro = (x => x.Apellidos.Contains(TextCriterio.Text));
-                    break;
 
 
             }
+
+            var lista = repositorio.GetList(filtro);
+            Session["Clientes"] = lista;
+
+            DatosGridView.DataSource = lista;
+            DatosGridView.DataBind();
+            CriterioTextBox.Text = "";
+
+            if (DatosGridView.Rows.Count > 0)
+            {
+                ImprimirButton.Visible = true;
+            }
+            else { ImprimirButton.Visible = false; }
+
         }
 
-        protected void ReporteButton_Click(object sender, EventArgs e)
+        protected void BuscarButton_Click(object sender, EventArgs e)
+        {
+            RetornaLista();
+        }
+
+        protected void ImprimirButton_Click(object sender, EventArgs e)
         {
             Response.Redirect("../Reportes/ReporteCliente.aspx");
-        }
-
-        protected void ClienteGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            ClienteGridView.DataSource = repositorio.GetList(filtro);
-            ClienteGridView.PageIndex = e.NewPageIndex;
-            ClienteGridView.DataBind();
-        }
-
-        protected void ClienteGridView_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
-        {
-
         }
     }
 }

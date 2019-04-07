@@ -17,7 +17,7 @@ namespace SistemaDeVentas.UI.Registros
         {
             if (!Page.IsPostBack)
             {
-
+                FechaTextBox.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 LlenaCombo();
 
 
@@ -46,6 +46,7 @@ namespace SistemaDeVentas.UI.Registros
         private void Limpiar()
         {
             FacturaIdTextbox.Text = "0";
+            FechaTextBox.Text = DateTime.Now.ToString("yyyy-MM-dd");
             CantidadTexbox.Text = "0";
             PrecioTextbox.Text = "0";
             ImporteTextbox.Text = " ";
@@ -106,6 +107,7 @@ namespace SistemaDeVentas.UI.Registros
             FacturasDetalles detalle = new FacturasDetalles();
             facturacion.FacturaId = Utilities.Utils.ToInt(FacturaIdTextbox.Text);
             facturacion.ClienteId = Utilities.Utils.ToInt(ClienteDropDownList.Text);
+            facturacion.Fecha = DateTime.Parse(FechaTextBox.Text);
             facturacion.Monto = Utilities.Utils.ToDecimal(MontoTextBox.Text);
             facturacion.Devuelta = Utilities.Utils.ToDecimal(DevueltaTextBox.Text);
             facturacion.SubTotal = Utils.ToDecimal(SubtotalTextBox.Text);

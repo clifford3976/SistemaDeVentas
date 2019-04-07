@@ -6,64 +6,101 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="container form-group ">
-        <div class="row">
+    <div class="rounded  " style="background-color: #000000; text-align: center;">
+        <div class="panel-heading" style="font-family: 'Times New Roman', Times, serif; font-size: x-large; color: blue;">Consulta de Facturas</div>
 
-            <label for="TipodeFiltro" style="width: 50px">Filtro:</label>
-            <div style="width: 220px">
-                <asp:DropDownList class="form-control" ID="TipodeFiltro" runat="server" for="TipodeFiltro" Width="200px">
-                    <asp:ListItem>FacturaId</asp:ListItem>
-                    <asp:ListItem>ClienteId</asp:ListItem>
-                    <asp:ListItem>Total</asp:ListItem>
-                    <asp:ListItem>Todos</asp:ListItem>
-
-
-                </asp:DropDownList>
-            </div>
-            <asp:Label ID="LabelCriterio" runat="server" Text="Criterio:" Style="width: 60px"></asp:Label>
-            <div style="width: 370px">
-                <asp:TextBox class="form-control" ID="TextCriterio" runat="server" Style="width: 350px"></asp:TextBox>
-
-            </div>
-            <asp:Button ID="ButtonBuscar" runat="server" Text="Buscar" class="btn btn-info btn-md" OnClick="ButtonBuscar_Click1" />
-
-        </div>
     </div>
 
 
 
-    <div class="container form-group ">
-        <div class="row">
-            <div class="form-row justify-content-center">
-                <asp:GridView ID="facturaGridView" runat="server" class="table table-condensed table-bordered table-responsive" OnPageIndexChanging="facturaGridView_PageIndexChanging" AutoGenerateColumns="false" CellPadding="4" ForeColor="#333333" GridLines="None">
-                    <AlternatingRowStyle BackColor="LightSkyBlue" />
-                    <Columns>
-                        <asp:BoundField DataField="FacturaId" HeaderText="FacturaId" />
-                        <asp:BoundField DataField="ClienteId" HeaderText="ClienteId" />
-                        <asp:BoundField DataField="Monto" HeaderText="Monto" />
-                        <asp:BoundField DataField="Subtotal" HeaderText="Subtotal" />
-                        <asp:BoundField DataField="Total" HeaderText="Total" />
-                        <asp:BoundField DataField="Devuelta" HeaderText="Devuelta" />
+    <div class="panel-body ">
+        <div class="form-horizontal col-md-12" role="form">
+
+            <%--Entradas de las consultas--%>
+            <div class="form-group control-label" style="align-items: center;">
+
+                <asp:Label ID="Labelfiltro" Style="font-size: medium;" runat="server" class="col-md-1 " Text="Filtro:"></asp:Label>
+
+                <div class="col-md-2">
+                    <asp:DropDownList ID="FiltroDropDownList" runat="server" Class="form-control input-sm" Style="font-size: medium">
+                        <asp:ListItem>FacturaId</asp:ListItem>
+                        <asp:ListItem>ClienteId</asp:ListItem>
+                        <asp:ListItem>Monto</asp:ListItem>
+                        <asp:ListItem Selected="True">Todo</asp:ListItem>
+
+                    </asp:DropDownList>
+                </div>
+                <asp:Label ID="Label1" Style="font-size: medium;" runat="server" Text="Criterio:" class="col-md-1 input-sm"></asp:Label>
+
+
+                <div class="col-md-3">
+                    <asp:TextBox ID="CriterioTextBox" runat="server" class="form-control input-sm" Style="font-size: medium"></asp:TextBox>
+
+                </div>
+                <div class="col-md-1">
+                    <asp:Button ID="BuscarButton" runat="server" Text="Buscar" class="btn btn-info btn-md" OnClick="BuscarButton_Click" />
+                </div>
+            </div>
 
 
 
-                    </Columns>
-                    <HeaderStyle BackColor="LightCyan" Font-Bold="True" />
-                </asp:GridView>
+            <%--fecha--%>
+            <div class="form-group control-label" style="align-items: center;">
 
+                <asp:Label ID="Label2" Style="font-size: medium;" runat="server" class="col-md-1 " Text="Desde:"></asp:Label>
+
+                <div class="col-md-2">
+
+                    <asp:TextBox ID="DesdeTextBox" runat="server" class="form-control input-sm" Style="font-size: medium" TextMode="Date"></asp:TextBox>
+
+                </div>
+                <asp:Label ID="Label3" Style="font-size: medium;" runat="server" Text="Hasta:" class="col-md-1 input-sm"></asp:Label>
+
+
+                <div class="col-md-2">
+                    <asp:TextBox ID="HastaTextBox" runat="server" class="form-control input-sm" Style="font-size: medium" TextMode="Date"></asp:TextBox>
+
+                </div>
 
             </div>
+
+
+
+
+
+
         </div>
     </div>
 
-    <div class="panel-footer">
-        <div class="modal-content">
-            <div class="text-center">
+    <%--Grid--%>
+
+    <div class="form-horizontal col-md-12" role="form">
+        <div class="table-responsive">
+            <asp:GridView ID="DatosGridView" runat="server" class="table table-condensed table-responsive" CellPadding="6" ForeColor="#333333" GridLines="None" AutoGenerateColumns="false">
+                <AlternatingRowStyle BackColor="White" />
+                <Columns>
+                    <asp:BoundField DataField="FacturaId" HeaderText="FacturaId" />
+                    <asp:BoundField DataField="ClienteId" HeaderText="ClienteId" />
+                    <asp:BoundField DataField="Fecha" HeaderText="Fecha" />
+                    <asp:BoundField DataField="Monto" HeaderText="Monto" />
+                    <asp:BoundField DataField="Total" HeaderText="Total" />
+                    <asp:BoundField DataField="Devuelta" HeaderText="Devuelta" />
+
+                </Columns>
+                <HeaderStyle BackColor="Black" Font-Bold="true" ForeColor="White" />
+                <RowStyle BackColor="#EFF3FB" />
+            </asp:GridView>
+        </div>
+
+
+
+        <div class="form-group row" style="align-items: center;">
+
+            <div class="col-md-3 col-sm-3 col-xl-3 col-3">
+                <asp:Button ID="ImprimirButton" runat="server" Text="Imprimir" class="btn btn-success" Enabled="True" EnableViewState="True" Visible="False" OnClick="ImprimirButton_Click" />
             </div>
+
         </div>
     </div>
-
-    <asp:Button ID="ReporteButton" runat="server" class="btn btn-success" Text="Imprimir" OnClick="ReporteButton_Click" />
-
 
 </asp:Content>
