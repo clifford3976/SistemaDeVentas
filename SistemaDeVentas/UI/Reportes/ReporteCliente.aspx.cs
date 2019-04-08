@@ -13,21 +13,21 @@ namespace SistemaDeVentas.UI.Reportes
 {
     public partial class ReporteCliente : System.Web.UI.Page
     {
-        Repositorio<Clientes> repositorio = new Repositorio<Clientes>();
-        Expression<Func<Clientes, bool>> filtro = C => true;
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (!Page.IsPostBack)
             {
+                Repositorio<Clientes> repositorio = new Repositorio<Clientes>();
+
                 ClienteReportViewer.ProcessingMode = Microsoft.Reporting.WebForms.ProcessingMode.Local;
                 ClienteReportViewer.Reset();
 
                 ClienteReportViewer.LocalReport.ReportPath = Server.MapPath(@"../Reportes/ClienteReporte.rdlc");
-
                 ClienteReportViewer.LocalReport.DataSources.Clear();
+                ClienteReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Cliente", (List<Clientes>)Session["Clientes"]));
 
-                ClienteReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Cliente", repositorio.GetList(c => true)));
                 ClienteReportViewer.LocalReport.Refresh();
             }
         }

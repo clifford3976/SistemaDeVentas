@@ -18,16 +18,18 @@ namespace SistemaDeVentas.UI.Reportes
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (!Page.IsPostBack)
             {
+                Repositorio<FacturasDetalles> repositorio = new Repositorio<FacturasDetalles>();
+
                 FacturaReportViewer.ProcessingMode = Microsoft.Reporting.WebForms.ProcessingMode.Local;
                 FacturaReportViewer.Reset();
 
                 FacturaReportViewer.LocalReport.ReportPath = Server.MapPath(@"../Reportes/FacturaReporte.rdlc");
-
                 FacturaReportViewer.LocalReport.DataSources.Clear();
-
                 FacturaReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Factura", repositorio.GetList(c => true)));
+               // FacturaReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Factura", (List<FacturasDetalles>)Session["FacturasDetalles"]));
+
                 FacturaReportViewer.LocalReport.Refresh();
             }
         }

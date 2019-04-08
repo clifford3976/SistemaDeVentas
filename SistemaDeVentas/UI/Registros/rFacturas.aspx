@@ -185,7 +185,7 @@
             <div class="container">
                 <div class="form-group">
                     <div class="form-row justify-content-center">
-                        <asp:GridView ID="detalleGridView" runat="server" class="table table-condensed table-bordered table-responsive"
+                        <asp:GridView ID="detalleGridView" runat="server" OnRowDataBound="detalleGridView_RowDataBound" OnSelectedIndexChanged="detalleGridView_SelectedIndexChanged" class="table table-condensed table-bordered table-responsive"
                             CellPadding="4" AllowPaging="true" PageSize="7" ForeColor="Black" GridLines="None" BackColor="White" OnPageIndexChanging="detalleGridView_PageIndexChanging1" OnRowCommand="detalleGridView_RowCommand">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>

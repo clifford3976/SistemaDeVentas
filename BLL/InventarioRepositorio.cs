@@ -135,8 +135,8 @@ namespace BLL
 
             return inventario;
         }
-
-        public override List<Inventarios> GetList(Expression<Func<Inventarios, bool>> expression)
+        
+        public new static List<Inventarios> GetList(Expression<Func<Inventarios, bool>> expression)
         {
             Contexto contexto = new Contexto();
             List<Inventarios> inventario = new List<Inventarios>();

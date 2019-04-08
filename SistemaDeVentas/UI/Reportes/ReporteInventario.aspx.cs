@@ -13,20 +13,20 @@ namespace SystemOfSales.UI.Reportes
 {
     public partial class ReporteInventario : System.Web.UI.Page
     {
-        Repositorio<Inventarios> repositorio = new Repositorio<Inventarios>();
-        Expression<Func<Inventarios, bool>> filtro = C => true;
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (!Page.IsPostBack)
             {
+                Repositorio<Inventarios> repositorio = new Repositorio<Inventarios>();
+
                 InventarioReportViewer.ProcessingMode = Microsoft.Reporting.WebForms.ProcessingMode.Local;
                 InventarioReportViewer.Reset();
 
                 InventarioReportViewer.LocalReport.ReportPath = Server.MapPath(@"../Reportes/InventarioReporte.rdlc");
-
                 InventarioReportViewer.LocalReport.DataSources.Clear();
+                InventarioReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Inventario", (List<Inventarios>)Session["Inventarios"]));
 
-                InventarioReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Inventario", repositorio.GetList(c => true)));
                 InventarioReportViewer.LocalReport.Refresh();
             }
         }

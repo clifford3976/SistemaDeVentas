@@ -9,136 +9,120 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    public class Repositorio<T> : IRepository<T> where T : class
+    public class Repositorio<T> : IDisposable, IRepository<T> where T : class
     {
+        internal Contexto _contexto;
+
+        public Repositorio()
+        {
+            _contexto = new Contexto();
+        }
+
+
 
         public virtual bool Guardar(T entity)
         {
-
             bool paso = false;
-            Contexto contexto = new Contexto();
+
             try
             {
-
-                if (contexto.Set<T>().Add(entity) != null)
+                if (_contexto.Set<T>().Add(entity) != null)
                 {
-                    contexto.SaveChanges();
+                    _contexto.SaveChanges();
                     paso = true;
                 }
-
-
             }
             catch (Exception)
             {
                 throw;
             }
-            finally
-            {
-                contexto.Dispose();
-            }
-
-
             return paso;
         }
+
+
+
 
         public virtual bool Modificar(T entity)
         {
             bool paso = false;
-            Contexto contexto = new Contexto();
             try
             {
+                _contexto = new Contexto();
 
-                contexto.Entry(entity).State = EntityState.Modified;
-                if (contexto.SaveChanges() > 0)
+                _contexto.Entry(entity).State = EntityState.Modified;
+                if (_contexto.SaveChanges() > 0)
                 {
                     paso = true;
                 }
-
 
             }
             catch (Exception)
             {
                 throw;
             }
-            finally
-            {
-                contexto.Dispose();
-            }
-
-
-
             return paso;
         }
 
         public virtual bool Eliminar(int id)
         {
             bool paso = false;
-            Contexto contexto = new Contexto();
+
             try
             {
+                T entity = _contexto.Set<T>().Find(id);
 
-                T entity = contexto.Set<T>().Find(id);
-                contexto.Set<T>().Remove(entity);
-                if (contexto.SaveChanges() > 0)
+                if (entity != null)
+                {
+                    _contexto.Set<T>().Remove(entity);
+                }
+                if (_contexto.SaveChanges() > 0)
                 {
                     paso = true;
                 }
-
+                _contexto.Dispose();
             }
             catch (Exception)
             {
                 throw;
             }
-            finally
-            {
-                contexto.Dispose();
-            }
-
             return paso;
         }
 
+
+
         public virtual T Buscar(int id)
         {
-            T entity = null;
-            Contexto contexto = new Contexto();
+            T entity;
             try
             {
-
-                entity = contexto.Set<T>().Find(id);
+                entity = _contexto.Set<T>().Find(id);
             }
             catch (Exception)
             {
                 throw;
             }
-            finally
-            {
-                contexto.Dispose();
-            }
-
             return entity;
         }
 
-        public virtual List<T> GetList(Expression<Func<T, bool>> expression)
+
+
+        public List<T> GetList(Expression<Func<T, bool>> expression)
         {
-            List<T> list = new List<T>();
-            Contexto contexto = new Contexto();
+            List<T> Lista = new List<T>();
             try
             {
-
-                list = contexto.Set<T>().Where(expression).ToList();
-
+                Lista = _contexto.Set<T>().Where(expression).ToList();
             }
             catch (Exception)
             {
                 throw;
             }
-            finally
-            {
-                contexto.Dispose();
-            }
-            return list;
+            return Lista;
         }
 
-
+        public void Dispose()
+        {
+            _contexto.Dispose();
+        }
     }
 }

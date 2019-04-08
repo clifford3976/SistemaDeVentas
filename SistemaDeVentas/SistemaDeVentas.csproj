@@ -386,9 +386,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="UI\Reportes\ClienteReporte.rdlc" />
-    <EmbeddedResource Include="UI\Reportes\FacturaReporte.rdlc" />
+    <Content Include="UI\Reportes\FacturaReporte.rdlc" />
     <Content Include="UI\Reportes\RecibidoReporte.rdlc" />
-    <EmbeddedResource Include="UI\Reportes\RopaReporte.rdlc" />
+    <Content Include="UI\Reportes\RopaReporte.rdlc" />
     <EmbeddedResource Include="UI\Reportes\UsuarioReporte.rdlc" />
   </ItemGroup>
   <PropertyGroup>

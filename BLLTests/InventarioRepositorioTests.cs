@@ -37,7 +37,7 @@ namespace BLL.Tests
             Repositorio<Inventarios> repositorio = new Repositorio<Inventarios>();
             Inventarios inventario = new Inventarios();
             bool paso = false;
-            inventario.Descripcion = "camiseta";
+            inventario.Descripcion ="camiseta";
             paso = repositorio.Modificar(inventario);
             Assert.AreEqual(true, paso);
         }
@@ -46,7 +46,7 @@ namespace BLL.Tests
         public void EliminarTest()
         {
             Repositorio<Inventarios> repositorio = new Repositorio<Inventarios>();
-            int id = 2;
+            int id = 1;
             bool paso = false;
             paso = repositorio.Eliminar(id);
             Assert.AreEqual(true, paso);

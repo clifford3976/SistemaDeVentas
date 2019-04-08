@@ -97,7 +97,7 @@ namespace SistemaDeVentas.UI.Registros
 
             //Cargar el detalle al Grid
             ViewState["Facturacion"] = facturacion.Detalles;
-            detalleGridView.DataSource = ViewState["Facturacion"];
+            detalleGridView.DataSource = (List<FacturasDetalles>)ViewState["Facturacion"];
             detalleGridView.DataBind();
         }
 
@@ -216,7 +216,7 @@ namespace SistemaDeVentas.UI.Registros
         }
         protected void Remover_Click(object sender, EventArgs e)
         {
-            if (detalleGridView.Rows.Count > 0
+            /*if (detalleGridView.Rows.Count > 0
              && detalleGridView.SelectedRow != null)
             {
 
@@ -246,7 +246,7 @@ namespace SistemaDeVentas.UI.Registros
 
 
 
-            }
+            }*/
         }
 
 
@@ -302,6 +302,7 @@ namespace SistemaDeVentas.UI.Registros
                     {
                         paso = FacturasBLL.Modificar(LlenaClase());
                         Utils.ShowToastr(this, "Modificado", "Exito", "success");
+                        Limpiar();
                     }
                     else
                         Utils.ShowToastr(this, "Id no existe", "Error", "error");
@@ -373,12 +374,7 @@ namespace SistemaDeVentas.UI.Registros
         {
             Precio();
         }
-        protected void detalleGridView_PageIndexChanging1(object sender, GridViewPageEventArgs e)
-        {
-            detalleGridView.DataSource = ViewState["FacturaDetalle"];
-            detalleGridView.PageIndex = e.NewPageIndex;
-            detalleGridView.DataBind();
-        }
+       
 
         protected void detalleGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
@@ -440,13 +436,13 @@ namespace SistemaDeVentas.UI.Registros
                 decimal total = 0;
                 foreach (var item in facturacion.Detalles)
                 {
-                    subtotal -= item.Importe;
+                    subtotal += item.Importe;
 
                 }
 
                 SubtotalTextBox.Text = subtotal.ToString();
 
-                total -= subtotal;
+                total += subtotal;
 
                 TotalTextBox.Text = total.ToString();
 
@@ -455,7 +451,23 @@ namespace SistemaDeVentas.UI.Registros
                 detalleGridView.DataBind();
                 MontoTextBox.Text = "";
                 DevueltaTextBox.Text = "";
-            }
+            
+        }
+    }
+
+        protected void detalleGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            
+        }
+
+        protected void detalleGridView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+        protected void detalleGridView_PageIndexChanging1(object sender, GridViewPageEventArgs e)
+        {
+            detalleGridView.DataSource = ViewState["Facturacion"];
+            detalleGridView.PageIndex = e.NewPageIndex;
+            detalleGridView.DataBind();
         }
     }
 }

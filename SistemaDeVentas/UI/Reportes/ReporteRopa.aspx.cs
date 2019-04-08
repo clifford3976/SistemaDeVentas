@@ -13,21 +13,20 @@ namespace SistemaDeVentas.UI.Reportes
 {
     public partial class ReporteRopa : System.Web.UI.Page
     {
-        Repositorio<Ropas> repositorio = new Repositorio<Ropas>();
-        Expression<Func<Ropas, bool>> filtro = C => true;
-
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (!Page.IsPostBack)
             {
+                Repositorio<Ropas> repositorio = new Repositorio<Ropas>();
+
                 RopaReportViewer.ProcessingMode = Microsoft.Reporting.WebForms.ProcessingMode.Local;
                 RopaReportViewer.Reset();
 
                 RopaReportViewer.LocalReport.ReportPath = Server.MapPath(@"../Reportes/RopaReporte.rdlc");
-
                 RopaReportViewer.LocalReport.DataSources.Clear();
+                RopaReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Ropa", (List<Ropas>)Session["Ropas"]));
 
-                RopaReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Ropa", repositorio.GetList(c => true)));
                 RopaReportViewer.LocalReport.Refresh();
             }
         }
